@@ -4,6 +4,8 @@
 const grid = document.getElementById('grid');
 const bottone = document.getElementById('generator');
 let bombs = [];
+let scoreCounter = 0;
+let scoreMessage = document.getElementById('score');
 
 //creo la funzione che mi permette di creare le celle
 function createCell(level) {
@@ -34,9 +36,16 @@ function createGrid(counter, level, bombs) {
         cell.addEventListener('click', function() {
             if (bombs.includes(i) == true) {
                 cell.classList.add('exploded');
-                alert('hai perso!');
+                scoreMessage.innerText = `Hai perso! il tuo punteggio è ${scoreCounter}!`
+            } else {
+                cell.classList.add('active');
+                scoreCounter++;    
             }
-            cell.classList.add('active');
+            //controllo quando termina la partita
+            if (scoreCounter == counter - 16) {
+                //la partita è finita il giocatore ha vinto
+                scoreMessage.innerText = `Hai vinto! non hai preso nemmeno una bomba!`
+            }
         })
         //inserisco la nuova cella nella griglia
         grid.append(cell);
@@ -57,7 +66,9 @@ function numbersRandom(min, max) {
 
 //creo il ciclo che aggiunge le celle alla griglia quado viene premuto il bottone
 bottone.addEventListener('click', function() {
-    grid.innerHTML = ''
+    grid.innerHTML = '';
+    scoreCounter = 0;
+    scoreMessage.innerText = '';
     let level = document.getElementById('levelSelection').value;
     let counter;
     switch (level) {
@@ -80,4 +91,5 @@ bottone.addEventListener('click', function() {
             createGrid(counter, level, bombs);
             break;
     }
+    console.log(bombs);
 })
