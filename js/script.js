@@ -3,6 +3,7 @@
 //dichiaro le variabili
 const grid = document.getElementById('grid');
 const bottone = document.getElementById('generator');
+let bombs = [];
 
 //creo la funzione che mi permette di creare le celle
 function createCell(level) {
@@ -31,13 +32,24 @@ function createGrid(counter, level) {
         cell.innerText = i;
         //creo un evento relativo al click sulla singola cella che gli fa cambiare colore
         cell.addEventListener('click', function() {
-            this.classList.toggle('active');
+            this.classList.add('active');
         })
         //inserisco la nuova cella nella griglia
         grid.append(cell);
     }
 }
 
+//creo una funzione che genera 16 numeri diversi, casuali e compresi tra 1 e il numero di celle della griglia
+function numbersRandom(min, max) {
+    while (bombs.length < 16) {
+        let number = Math.floor(Math.random() * (max - min +1 )) + min;
+        if (bombs.includes(number) == false) {
+            bombs.push(number);
+        }
+    }
+    return bombs;
+    }
+    
 //creo il ciclo che aggiunge le celle alla griglia quado viene premuto il bottone
 bottone.addEventListener('click', function() {
     grid.innerHTML = ''
