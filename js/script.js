@@ -40,6 +40,7 @@ function createGrid(counter, level) {
 
 //creo il ciclo che aggiunge le celle alla griglia quado viene premuto il bottone
 bottone.addEventListener('click', function() {
+    grid.innerHTML = ''
     let level = document.getElementById('levelSelection').value;
     let counter;
     switch (level) {
