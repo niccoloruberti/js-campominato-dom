@@ -24,15 +24,19 @@ function createCell(level) {
 }
 
 //creo la funzione che mi permette di creare le griglie
-function createGrid(counter, level) {
+function createGrid(counter, level, bombs) {
     for (let i = 1; i <= counter; i++) {
         //creo una nuova cella
         let cell = createCell(level);
         //inserisco il testo nella cella
         cell.innerText = i;
-        //creo un evento relativo al click sulla singola cella che gli fa cambiare colore
+        //creo un evento relativo al click sulla singola cella che gli fa cambiare colore a seconda se è una bomba o meno
         cell.addEventListener('click', function() {
-            this.classList.add('active');
+            if (bombs.includes(i) == true) {
+                cell.classList.add('exploded');
+                alert('hai perso!');
+            }
+            cell.classList.add('active');
         })
         //inserisco la nuova cella nella griglia
         grid.append(cell);
@@ -41,15 +45,16 @@ function createGrid(counter, level) {
 
 //creo una funzione che genera 16 numeri diversi, casuali e compresi tra 1 e il numero di celle della griglia
 function numbersRandom(min, max) {
-    while (bombs.length < 16) {
+    let array = [];
+    while (array.length < 16) {
         let number = Math.floor(Math.random() * (max - min +1 )) + min;
-        if (bombs.includes(number) == false) {
-            bombs.push(number);
+        if (array.includes(number) == false) {
+            array.push(number);
         }
     }
-    return bombs;
+    return array;
     }
-    
+
 //creo il ciclo che aggiunge le celle alla griglia quado viene premuto il bottone
 bottone.addEventListener('click', function() {
     grid.innerHTML = ''
@@ -59,17 +64,20 @@ bottone.addEventListener('click', function() {
         case '1':
             //ciclo che crea 100 celle
             counter = 100;
-            createGrid(counter, level);
+            bombs = numbersRandom (1, counter);
+            createGrid(counter, level, bombs);
             break;
         case '2':
             //ciclo che crea 81 celle
             counter = 81;
-            createGrid(counter, level);
+            bombs = numbersRandom (1, counter);
+            createGrid(counter, level, bombs);
             break;
         case '3':
             //ciclo che crea 49 celle
             counter = 49;
-            createGrid(counter, level);
+            bombs = numbersRandom (1, counter);
+            createGrid(counter, level, bombs);
             break;
     }
 })
