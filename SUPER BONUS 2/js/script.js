@@ -37,7 +37,7 @@ function cellReveal(i, bombe, celle, messaggioPunteggio, contatore) {
         for (let n = 0; n < 16; n++) {
             grid.children[bombe[n] - 1].classList.add('exploded');
         }
-    } else if (gameOver == false) {
+    } else if (gameOver == false && !celle.classList.contains('active')) {
         celle.classList.add('active');
         scoreCounter++;
         console.log(gameOver)  

@@ -33,7 +33,7 @@ function cellReveal(i, bombe, celle, messaggioPunteggio, contatore) {
         messaggioPunteggio.innerText = `Hai perso! il tuo punteggio è ${scoreCounter}!`;
         gameOver = true;
         celle.style.pointerEvents = 'none';
-    } else if (gameOver == false) {
+    } else if (gameOver == false && !celle.classList.contains('active')) {
         celle.classList.add('active');
         scoreCounter++;
         console.log(gameOver)  

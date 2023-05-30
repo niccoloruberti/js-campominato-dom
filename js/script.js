@@ -37,9 +37,9 @@ function createGrid(counter, level, bombs) {
             if (bombs.includes(i) == true) {
                 cell.classList.add('exploded');
                 scoreMessage.innerText = `Hai perso! il tuo punteggio è ${scoreCounter}!`
-            } else {
+            } else if (!cell.classList.contains('active')) {
                 cell.classList.add('active');
-                scoreCounter++;    
+                scoreCounter++;
             }
             //controllo quando termina la partita
             if (scoreCounter == counter - 16) {
